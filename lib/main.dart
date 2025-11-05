@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:football_news/menu.dart';
+import 'package:football_news/screens/menu.dart';
+import 'package:football_news/widgets/news_card.dart';
 
 void main() {
   runApp(const MyApp());

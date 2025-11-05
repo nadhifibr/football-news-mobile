@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:football_news/widgets/left_drawer.dart';
+import 'package:football_news/widgets/news_card.dart';
+import 'package:football_news/screens/newslist_form.dart';
 
 class MyHomePage extends StatelessWidget {
     MyHomePage({super.key});
@@ -16,19 +19,20 @@ class MyHomePage extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return Scaffold(
-      // AppBar adalah bagian atas halaman yang menampilkan judul.
-      appBar: AppBar(
-        // Judul aplikasi "Football News" dengan teks putih dan tebal.
-        title: const Text(
-          'Football News',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
+          appBar: AppBar(
+            // Judul aplikasi "Football News" dengan teks putih dan tebal.
+            
+            title: const Text(
+              'Football News',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            // Warna latar belakang AppBar diambil dari skema warna tema aplikasi.
+            backgroundColor: Theme.of(context).colorScheme.primary,
           ),
-        ),
-        // Warna latar belakang AppBar diambil dari skema warna tema aplikasi.
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
+          drawer: LeftDrawer(),
       // Body halaman dengan padding di sekelilingnya.
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -149,13 +153,19 @@ class ItemCard extends StatelessWidget {
 
       child: InkWell(
         // Aksi ketika kartu ditekan.
+        // Area responsif terhadap sentuhan
         onTap: () {
-          // Menampilkan pesan SnackBar saat kartu ditekan.
+          // Memunculkan SnackBar ketika diklik
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
-            );
+            ..showSnackBar(SnackBar(
+                content: Text("Kamu telah menekan tombol ${item.name}!")));
+
+          // Navigate ke route yang sesuai (tergantung jenis tombol)
+          if (item.name == "Add News") {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const NewsFormPage()));
+          }
+
         },
         // Container untuk menyimpan Icon dan Text
         child: Container(
